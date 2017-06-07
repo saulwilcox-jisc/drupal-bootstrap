@@ -1,0 +1,30 @@
+---
+- name: Install apache
+  apt: name=apache2 state=installed update_cache=yes
+
+- name: Enable mod_rewrite
+  apache2_module: name=rewrite state=present
+
+- name: Install php and modules
+  apt: name={{item}} state=present
+  with_items:
+    - php5
+    - php5-cgi
+    - php5-cli
+    - php5-mcrypt
+    - php5-gd
+    - php5-curl
+    - php-pear
+    - libapache2-mod-php5
+
+- name: Set Apache run user to vagrant
+  lineinfile: dest=/etc/apache2/envvars regexp='^(.*)export APACHE_RUN_USER=' line='export APACHE_RUN_USER=vagrant'
+
+- name: Copy jisc-ac-uk Virtualhost template
+  template: src=jisc-ac-uk.j2 dest=/etc/apache2/sites-available/jisc-ac-uk.conf mode=0600
+
+- name: Enable jisc-ac-uk
+  shell: "a2ensite jisc-ac-uk.conf"
+
+- name: Restart apache
+  service: name=apache2 state=restarted

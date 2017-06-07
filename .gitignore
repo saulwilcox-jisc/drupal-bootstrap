@@ -1,5 +1,8 @@
 # General
 *.DS_Store
 
+# Ansible failed provision placeholders
+*.retry
+
 # PHPstorm - config is "roll your own" for now
 .idea

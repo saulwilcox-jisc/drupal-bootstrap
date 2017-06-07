@@ -1,0 +1,4 @@
+solr_path: http://archive.apache.org/dist/lucene/solr/
+solr_version: 6.5.1
+solr_destination: /opt/solr/server/
+enable_cors: false

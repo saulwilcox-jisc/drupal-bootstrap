@@ -1,0 +1,10 @@
+# not using this anymore, use the https://bitbucket.org/pebbleroad/ansible-role-java role..
+---
+- name: add java 8 APT repo..
+  apt_repository: repo='ppa:webupd8team/java' state=present
+
+- name: accept license..
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+- name: install oracle-java8-installer..
+  apt: name=oracle-java8-installer update_cache=yes state=present

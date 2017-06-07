@@ -1,0 +1,36 @@
+---
+ - name: Install MySQL
+   apt: name={{ item }} state=installed update_cache=yes
+   with_items:
+     - mysql-server
+     - mysql-client
+     - python-mysqldb
+     - libmysqlclient-dev
+
+ - name: Update MySQL root pwd
+   mysql_user: name=root host={{ item }} password={{ mysql_root_pass }} state=present
+   with_items:
+     - "{{ ansible_hostname }}"
+     - 127.0.0.1
+     - ::1
+     - localhost
+
+ - name: Copy .my.cnf file template
+   template: src=root.cnf.j2 dest=~/.my.cnf mode=0600
+
+ - name: Delete anonymous users
+   mysql_user: name='' host={{ item }} state=absent
+   with_items:
+     - localhost
+     - "{{ ansible_hostname }}"
+
+ - name: Remove test db
+   mysql_db: name=test state=absent
+   notify:
+     - Restart MySQL
+
+ - name: Create database
+   mysql_db: name=drupal7_jisc state=present collation=utf8_general_ci
+
+ - name: Install php5-mysql
+   apt: name=php5-mysql state=present

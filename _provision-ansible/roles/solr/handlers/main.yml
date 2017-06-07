@@ -1,0 +1,3 @@
+- name: Start Jetty
+  command: /etc/init.d/jetty start
+  become: true

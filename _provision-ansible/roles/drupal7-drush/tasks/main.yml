@@ -1,0 +1,2 @@
+- name: Install drush via apt
+  apt: name=drush state=latest

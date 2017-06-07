@@ -1,0 +1,36 @@
+---
+- name: Install git
+  apt: name=git state=latest
+
+- name: Install Drupal 7 into /var/www/jisc-ac-uk with drush
+  shell: "drush dl drupal-7.x --destination=/var/www --drupal-project-rename=jisc-ac-uk"
+
+- name: Git init in drupal folder
+  shell: "cd /var/www/jisc-ac-uk && git init"
+
+- name: Add remote origin
+  shell: "git remote add origin https://github.com/janetuk/jisc-ac-uk.git"
+
+- name: Fetch repository from https://github.com/janetuk/jisc-ac-uk
+  shell: "cd /var/www/jisc-ac-uk"
+  shell: "git fetch https://github.com/janetuk/jisc-ac-uk"
+
+- name: Git track master (like clone would)
+  shell: "cd /var/www/jisc-ac-uk && git checkout -b master --track origin/master"
+
+- name: Symlink patched facetx to contrib
+  file:
+    src: /var/www/jisc-ac-uk/sites/all/modules/patched/{{ item.path }}
+    dest: /var/www/jisc-ac-uk/sites/all/modules/contrib/{{ item.dest }}
+    state: link
+  with_items:
+    - { path: 'facetapi', dest: 'facetapi' }
+
+- name: Import DB dump
+  shell: "mysql -u root -proot drupal7_jisc < web02_jisc_2017-05-31_14-22.sql"
+
+- name: Change admin password
+  shell: "drush upwd --password='admin' 'admin'"
+
+- name: Drush - clear caches
+  shell: drush cc all

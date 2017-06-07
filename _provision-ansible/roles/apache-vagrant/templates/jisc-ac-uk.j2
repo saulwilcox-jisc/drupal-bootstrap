@@ -1,0 +1,12 @@
+<VirtualHost *:80>
+        ServerName jisc-ac-uk
+        ServerAdmin webmaster@localhost
+        DocumentRoot "/var/www/jisc-ac-uk"
+
+        <Directory "/var/www/jisc-ac-uk">
+            AllowOverride All
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>

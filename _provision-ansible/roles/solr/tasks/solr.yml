@@ -1,0 +1,64 @@
+---
+- name: Creating vars for Solr URL and file
+  set_fact:
+    solr_file: "solr-{{ solr_version }}"
+    solr_url: "{{ solr_path }}{{ solr_version }}/solr-{{ solr_version }}.tgz"
+    solr_example_path: "/opt/solr-{{ solr_version }}/example"
+
+- name: Show solr URL
+  debug: msg="{{ solr_url }}"
+
+- name: Check if solr is downloaded
+  stat: path=/home/{{ ansible_ssh_user }}/solr-{{ solr_version }}.tgz
+  register: solrdownload
+
+- name: Get solr
+  get_url: url={{ solr_url }} dest=/home/{{ ansible_ssh_user }}
+  when: solrdownload.stat.exists == False
+
+- name: Extract the service installation file
+  command: "tar xzf {{ solr_file }}.tgz {{ solr_file }}/bin/install_solr_service.sh --strip-components=2"
+  when: solrdownload.stat.exists == False
+
+- name: Check if solr service is installed
+  stat: path="/etc/init.d/solr"
+  register: solrservice
+
+- name: Install Solr as a service
+  command: "./install_solr_service.sh {{ solr_file }}.tgz -i /opt -d /var/solr -u {{ ansible_ssh_user }} -s solr -p 8983"
+  become: true
+  when: solrservice.stat.exists == False
+
+- name: Change solr user to ansible_ssh_user
+  file: path=/opt/solr/ owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} recurse=yes
+  become: true
+
+- name: Get the jetty-servlets jar to enable CORS
+  get_url: url=http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-servlets/8.1.10.v20130312/jetty-servlets-8.1.10.v20130312.jar dest="{{ solr_destination }}lib" mode=755
+  when: enable_cors
+  tags: enable_cors
+
+- name: Change jetty-servlets user jar to solr user
+  file: path="{{ solr_destination }}lib/jetty-servlets-8.1.10.v20130312.jar" group={{ ansible_ssh_user }} owner={{ ansible_ssh_user }}
+  when: enable_cors
+  tags: enable_cors
+
+- name: Copy webdefault.xml file
+  copy: src=webdefault.xml dest="{{ solr_destination }}etc"
+  when: enable_cors
+  tags: enable_cors
+
+- name: Change webdefault.xml to solr user..
+  file: path="{{ solr_destination }}etc/webdefault.xml" group={{ ansible_ssh_user }} owner={{ ansible_ssh_user }}
+  when: enable_cors
+  tags: enable_cors
+
+- name: Stop Solr
+  service: name=solr state=stopped
+  become: true
+  tags: stop_solr
+
+- name: Start Solr
+  service: name=solr state=started
+  become: true
+  tags: start_solr

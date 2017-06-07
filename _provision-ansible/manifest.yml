@@ -1,0 +1,8 @@
+- hosts: all
+  sudo: yes
+  roles:
+    - javavm
+    - solr
+    - mysqlserver
+    - apache-vagrant
+    - drupal7-drush
