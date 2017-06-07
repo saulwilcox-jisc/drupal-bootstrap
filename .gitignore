@@ -1,0 +1,5 @@
+# General
+*.DS_Store
+
+# PHPstorm - config is "roll your own" for now
+.idea
