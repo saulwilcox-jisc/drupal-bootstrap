@@ -25,7 +25,7 @@
   register: solrservice
 
 - name: Install Solr as a service
-  command: "./install_solr_service.sh {{ solr_file }}.tgz -i /opt -d /var/solr -u {{ ansible_ssh_user }} -s solr -p 8983"
+  command: "./install_solr_service.sh {{ solr_file }}.tgz -i /opt -d /var/solr -u {{ ansible_ssh_user }} -s solr -p 8080"
   become: true
   when: solrservice.stat.exists == False
 

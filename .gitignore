@@ -6,3 +6,6 @@
 
 # PHPstorm - config is "roll your own" for now
 .idea
+
+# Vagrant
+.vagrant

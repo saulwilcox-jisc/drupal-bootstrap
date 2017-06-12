@@ -45,22 +45,27 @@ config.vm.network "private_network", ip: "77.77.77.7"
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+
+# Note mount options which are important to avoid permissions quirks
 config.vm.synced_folder "~/jisc-drupal", "/var/www",
     owner: "vagrant",
     group: "www-data",
     mount_options: ["dmode=775,fmode=664"]
 
+  # In some cases Drupal can be slow unless NFS or rsync are used
+  # config.vm.synced_folder "~/jisc-drupal7", "/var/www", type: 'rsync'
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
+      vb.memory = "1024"
+  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.

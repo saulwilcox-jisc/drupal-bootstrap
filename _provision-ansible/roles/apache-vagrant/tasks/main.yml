@@ -21,7 +21,10 @@
   lineinfile: dest=/etc/apache2/envvars regexp='^(.*)export APACHE_RUN_USER=' line='export APACHE_RUN_USER=vagrant'
 
 - name: Copy jisc-ac-uk Virtualhost template
-  template: src=jisc-ac-uk.j2 dest=/etc/apache2/sites-available/jisc-ac-uk.conf mode=0600
+  template: src=jisc-ac-uk.conf.j2 dest=/etc/apache2/sites-available/jisc-ac-uk.conf mode=0600
+
+- name: Disable default site
+  shell: "a2dissite 000-default.conf"
 
 - name: Enable jisc-ac-uk
   shell: "a2ensite jisc-ac-uk.conf"
