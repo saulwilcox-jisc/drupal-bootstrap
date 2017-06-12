@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ARTACK/debian-jessie"
+  config.vm.box = "debian-jessie"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -45,7 +45,7 @@ config.vm.network "private_network", ip: "77.77.77.7"
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-config.vm.synced_folder "~/jisc-drupal7", "/var/www",
+config.vm.synced_folder "~/jisc-drupal", "/var/www",
     owner: "vagrant",
     group: "www-data",
     mount_options: ["dmode=775,fmode=664"]
