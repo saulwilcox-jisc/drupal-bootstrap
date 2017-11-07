@@ -23,7 +23,7 @@ $ vagrant ssh
 
 Then try:
 
-php -f bootstrap-drupal.php
+$ php -f bootstrap-drupal.php
 
 This will help with the final steps to clone + configure the site.
 
@@ -31,6 +31,12 @@ In the Vagrantfile you'll see that the VM has a fixed IP of 77.77.77.7.
 Typically this would be mapped to something more meaningful in your /etc/hosts file.
 
 You'll still need to run the drupal install script, clone sites & modules and import a database.
+
+# Search
+
+You can create a SOLR core from a configuration file, for example:
+
+$ /opt/solr-6.5.1/bin/solr create_core -c jisc -d /var/www/jisc-ac-uk/sites/all/modules/contrib/search_api_solr/solr-conf/6.x
 
 Make sure all the Search indexes are activated and present on the Solr core - note that 'drush searchapi-index 0 0 100' probably won't index everything - it's better to index them in the admin interface.
 
