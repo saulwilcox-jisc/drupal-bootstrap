@@ -47,13 +47,13 @@ config.vm.network "private_network", ip: "77.77.77.7"
   # config.vm.synced_folder "../data", "/vagrant_data"
 
 # Note mount options which are important to avoid permissions quirks
-config.vm.synced_folder "~/jisc-drupal", "/var/www",
-    owner: "vagrant",
-    group: "www-data",
-    mount_options: ["dmode=775,fmode=664"]
+#config.vm.synced_folder "/Users/saul.wilcox/PhpstormProjects/jisc-ac-uk", "/var/www/jisc-ac-uk", owner: "vagrant", group: "www-data", mount_options: ["dmode=775,fmode=664"]
+
+# NFS
+config.vm.synced_folder "~/PhpstormProjects/jisc-ac-uk", "/var/www/jisc-ac-uk", nfs: true, linux__nfs_options:['rw','no_subtree_check','all_squash','async']
 
   # In some cases Drupal can be slow unless NFS or rsync are used
-  # config.vm.synced_folder "~/jisc-drupal7", "/var/www", type: 'rsync'
+# config.vm.synced_folder "/Library/Webserver/Documents/jisc-ac-uk", "/var/www/jisc-ac-uk", type: 'rsync', rsync__exclude: ['.git/','sites/all/modules/patched/facetapi', 'all/modules/patched/facetapi']
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -64,7 +64,7 @@ config.vm.synced_folder "~/jisc-drupal", "/var/www",
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-      vb.memory = "1024"
+      vb.memory = "2048"
   end
   #
   # View the documentation for the provider you are using for more

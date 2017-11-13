@@ -6,3 +6,4 @@
     - mysqlserver
     - apache-vagrant
     - drupal7-drush
+    - apache-php5-xdebug

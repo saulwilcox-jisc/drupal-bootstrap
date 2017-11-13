@@ -1,0 +1,9 @@
+---
+- name: Install xdebug
+  apt: pkg=php5-xdebug state=latest
+
+- name: Configure xdebug for PHPSTORM via template (adds remote debug + key)
+  template: src=xdebug.ini.j2 dest=/etc/php5/mods-available/xdebug.ini
+
+- name: Restart apache
+  service: name=apache2 state=restarted
