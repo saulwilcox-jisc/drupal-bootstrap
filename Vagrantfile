@@ -53,6 +53,7 @@ config.vm.network "private_network", ip: "77.77.77.7"
 
 # NFS
 config.vm.synced_folder "~/PhpstormProjects/jisc-ac-uk", "/var/www/jisc-ac-uk", nfs: true, linux__nfs_options:['rw','no_subtree_check','all_squash','async']
+config.vm.synced_folder "~/PhpstormProjects/community", "/var/www/community", nfs: true, linux__nfs_options:['rw','no_subtree_check','all_squash','async']
 
   # In some cases Drupal can be slow unless NFS or rsync are used
 # config.vm.synced_folder "/Library/Webserver/Documents/jisc-ac-uk", "/var/www/jisc-ac-uk", type: 'rsync', rsync__exclude: ['.git/','sites/all/modules/patched/facetapi', 'all/modules/patched/facetapi']
