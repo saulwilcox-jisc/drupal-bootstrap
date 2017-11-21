@@ -1,2 +1,2 @@
-- name: Install drush via apt
-  apt: name=drush state=latest
+- name: Install drush
+  shell: "composer require drush/drush"
