@@ -32,5 +32,8 @@
  - name: Create database
    mysql_db: name=drupal7_jisc state=present collation=utf8_general_ci
 
+ - name: Create database
+   mysql_db: name=community state=present collation=utf8_general_ci
+
  - name: Install php5-mysql
    apt: name=php5-mysql state=present
