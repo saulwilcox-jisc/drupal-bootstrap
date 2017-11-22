@@ -1,2 +1,9 @@
 - name: Install drush
   shell: "composer require drush/drush"
+  args:
+      chdir: /var/www/jisc-ac-uk
+
+- name: Install drush
+  shell: "composer require drush/drush \"^8.0\""
+  args:
+      chdir: /var/www/community
