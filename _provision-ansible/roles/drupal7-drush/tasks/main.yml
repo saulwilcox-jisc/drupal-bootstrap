@@ -7,3 +7,12 @@
   shell: "composer require drush/drush \"^8.0\""
   args:
       chdir: /var/www/community
+
+- name: Update bashrc to add new PATH entries for drush:
+    dest=/home/vagrant/.profile
+    line="export PATH='$PATH:/var/www/jisc-ac-uk/sites/vendor/bin:/var/www/community/sites/vendor/bin'"
+    regexp="^export PATH"
+    owner=vagrant
+    state=present
+    insertafter=EOF
+    create=True
