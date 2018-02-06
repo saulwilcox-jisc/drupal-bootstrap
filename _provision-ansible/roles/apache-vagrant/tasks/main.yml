@@ -26,20 +26,11 @@
 - name: Copy jisc-ac-uk htaccess template
   template: src=jisc-ac-uk.htaccess.j2 dest=/var/www/jisc-ac-uk/.htaccess mode=0600
 
-- name: Copy community Virtualhost template
-  template: src=community.conf.j2 dest=/etc/apache2/sites-available/community.conf mode=0600
-
-- name: Copy community htaccess template
-  template: src=community.htaccess.j2 dest=/var/www/community/.htaccess mode=0600
-
 - name: Disable default site
   shell: "a2dissite 000-default.conf"
 
 - name: Enable jisc-ac-uk
   shell: "a2ensite jisc-ac-uk.conf"
-
-- name: Enable community
-  shell: "a2ensite community.conf"
 
 - name: Restart apache
   service: name=apache2 state=restarted
