@@ -49,13 +49,17 @@ config.vm.network "private_network", ip: "77.77.77.7"
   # config.vm.synced_folder "../data", "/vagrant_data"
 
 # Note mount options which are important to avoid permissions quirks
-#config.vm.synced_folder "/Users/saul.wilcox/PhpstormProjects/jisc-ac-uk", "/var/www/jisc-ac-uk", owner: "vagrant", group: "www-data", mount_options: ["dmode=775,fmode=664"]
+# config.vm.synced_folder "/Users/saul.wilcox/PhpstormProjects/jisc-ac-uk", "/var/www/jisc-ac-uk", owner: "vagrant", group: "www-data", mount_options: ["dmode=775,fmode=664"]
+
+config.vm.synced_folder "/Users/saul.wilcox/PhpstormProjects/jisc-ac-uk", "/var/www/jisc-ac-uk"
 
 # NFS
-config.vm.synced_folder "~/PhpstormProjects/jisc-ac-uk", "/var/www/jisc-ac-uk", nfs: true, linux__nfs_options:['rw','no_subtree_check','all_squash','async']
-config.vm.synced_folder "~/PhpstormProjects/community", "/var/www/community", nfs: true, linux__nfs_options:['rw','no_subtree_check','all_squash','async']
+# config.vm.synced_folder "~/PhpstormProjects/jisc-ac-uk", "/var/www/jisc-ac-uk", nfs: true, linux__nfs_options:['rw','no_subtree_check','all_squash','async']
+# config.vm.synced_folder "~/PhpstormProjects/community", "/var/www/community", nfs: true, linux__nfs_options:['rw','no_subtree_check','all_squash','async']
 
-  # In some cases Drupal can be slow unless NFS or rsync are used
+# config.vm.synced_folder "~/PhpstormProjects/jisc-ac-uk", "/var/www/jisc-ac-uk", type: "rsync", rsync__args: ["--verbose", "--archive", "--delete", "-z"]
+
+# In some cases Drupal can be slow unless NFS or rsync are used
 # config.vm.synced_folder "/Library/Webserver/Documents/jisc-ac-uk", "/var/www/jisc-ac-uk", type: 'rsync', rsync__exclude: ['.git/','sites/all/modules/patched/facetapi', 'all/modules/patched/facetapi']
 
   # Provider-specific configuration so you can fine-tune various
