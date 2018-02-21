@@ -8,3 +8,4 @@
     - php-composer
     - drupal7-drush
     - apache-php5-xdebug
+    - solr-jisc-core

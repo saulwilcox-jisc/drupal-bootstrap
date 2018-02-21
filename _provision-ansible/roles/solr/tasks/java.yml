@@ -1,4 +1,3 @@
-# not using this anymore, use the https://bitbucket.org/pebbleroad/ansible-role-java role..
 ---
 - name: add java 8 APT repo..
   apt_repository: repo='ppa:webupd8team/java' state=present

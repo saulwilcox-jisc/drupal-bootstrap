@@ -1,0 +1,13 @@
+---
+- name: Stop Solr
+  service: name=solr state=stopped
+  become: true
+  tags: stop_solr
+
+- name: Add jisc core according to config in search_api_solr/solr-conf/6.x
+  command: "/opt/solr-6.5.1/bin/solr create_core -c jisc -d /var/www/jisc-ac-uk/sites/all/modules/contrib/search_api_solr/solr-conf/6.x"
+
+- name: Start Solr
+  service: name=solr state=started
+  become: true
+  tags: start_solr
