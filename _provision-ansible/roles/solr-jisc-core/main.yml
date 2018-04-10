@@ -5,7 +5,8 @@
   tags: stop_solr
 
 - name: Add jisc core according to config in search_api_solr/solr-conf/6.x
-  command: "/opt/solr-6.5.1/bin/solr create_core -c jisc -d /var/www/jisc-ac-uk/sites/all/modules/contrib/search_api_solr/solr-conf/6.x"
+  shell: "/opt/solr-6.5.1/bin/solr create_core -c jisc -d /var/www/jisc-ac-uk/sites/all/modules/contrib/search_api_solr/solr-conf/6.x"
+  become: true
 
 - name: Start Solr
   service: name=solr state=started
