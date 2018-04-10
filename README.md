@@ -2,7 +2,7 @@
 Quick-start for Drupal sites: bootstrap and provision a development VM with Ansible and Vagrant, using a Debian 8 box. Includes SOLR.
 
 You will need:
-- Ansible (2.3.0.0)
+- Ansible (2.3.0.0) - install homebrew and use "brew install ansible"
 - Virtualbox (5.1)
 - Vagrant (1.9.5)
 
@@ -21,16 +21,13 @@ For a terminal inside the VM:
 
 $ vagrant ssh
 
-Then try:
-
-$ php -f bootstrap-drupal.php
-
-This will help with the final steps to clone + configure the site.
+You'll still need to:
+- drush download drupal7.x-dev (drush dl drupal-7.x)
+- run the drupal install script
+- clone sites & modules and import a database.
 
 In the Vagrantfile you'll see that the VM has a fixed IP of 77.77.77.7.
 Typically this would be mapped to something more meaningful in your /etc/hosts file.
-
-You'll still need to run the drupal install script, clone sites & modules and import a database.
 
 # Search
 
