@@ -1,4 +1,7 @@
 ---
+ - name: Add MySQL GPG Key
+   command: sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5072E1F5
+
  - name: Install MySQL
    apt: name={{ item }} state=installed update_cache=yes
    with_items:
